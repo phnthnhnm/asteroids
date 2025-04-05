@@ -1,3 +1,5 @@
+import os
+from pathlib import Path
 import sys
 import pygame
 import pygame.freetype
@@ -9,7 +11,18 @@ from shot import Shot
 from explosion import Explosion
 from pygame import transform
 
-background = pygame.image.load("assets/background.svg")
+def resource_path(relative_path):
+    """Get the absolute path to the resource, works for dev and for PyInstaller"""
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        # If we are still in dev mode, make our paths start from the folder this file is in
+        base_path = Path(__file__).parent
+
+    return os.path.join(base_path, relative_path)
+
+background = pygame.image.load(resource_path("assets/background.svg"))
 background = transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
 def main():
