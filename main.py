@@ -7,6 +7,11 @@ from constants import *
 from player import Player
 from shot import Shot
 from explosion import Explosion
+from pygame import transform
+
+# Load the background image
+background = pygame.image.load("assets/background.svg")
+background = transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
 def main():
     print("Starting Asteroids!")
@@ -42,7 +47,8 @@ def main():
             if event.type == pygame.QUIT:
                 return
             
-        screen.fill("black")
+        screen.blit(background, (0, 0))
+
         updateable.update(dt)
         
         for sprite in drawable:
