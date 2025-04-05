@@ -1,6 +1,6 @@
 import sys
 import pygame
-import pygame.freetype  # Import for rendering text
+import pygame.freetype
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
 from constants import *
@@ -9,7 +9,6 @@ from shot import Shot
 from explosion import Explosion
 from pygame import transform
 
-# Load the background image
 background = pygame.image.load("assets/background.svg")
 background = transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
@@ -40,7 +39,7 @@ def main():
 
     score = 0
     font = pygame.freetype.SysFont(None, 36)
-    lives = 3  # Initialize lives
+    lives = 3
 
     while True:
         for event in pygame.event.get():
@@ -77,8 +76,10 @@ def main():
                     
         score_text = f"Score: {score}"
         lives_text = f"Lives: {lives}"
+        weapon_text = f"Weapon: {player.weapon_type.capitalize()}"
         font.render_to(screen, (10, 10), score_text, "white")
         font.render_to(screen, (10, 50), lives_text, "red")
+        font.render_to(screen, (10, 90), weapon_text, "yellow")
 
         pygame.display.flip()
 
