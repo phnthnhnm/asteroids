@@ -1,5 +1,6 @@
 import sys
 import pygame
+import pygame.freetype  # Import for rendering text
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
 from constants import *
@@ -30,6 +31,9 @@ def main():
     player = Player(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
     asteroid_field = AsteroidField()
 
+    score = 0
+    font = pygame.freetype.SysFont(None, 36)
+
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -51,7 +55,16 @@ def main():
                 if asteroid.collide(shot):
                     asteroid.split()
                     shot.kill()
-                    
+                    if asteroid.radius == ASTEROID_MAX_RADIUS:
+                        score += 3  # Large asteroid
+                    elif asteroid.radius == ASTEROID_MIN_RADIUS * 2:
+                        score += 2  # Medium asteroid
+                    elif asteroid.radius == ASTEROID_MIN_RADIUS:
+                        score += 1  # Small asteroid
+
+        score_text = f"Score: {score}"
+        font.render_to(screen, (10, 10), score_text, "white")
+
         pygame.display.flip()
 
         dt = clock.tick(60) / 1000
