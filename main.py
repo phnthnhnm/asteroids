@@ -33,6 +33,7 @@ def main():
 
     score = 0
     font = pygame.freetype.SysFont(None, 36)
+    lives = 3  # Initialize lives
 
     while True:
         for event in pygame.event.get():
@@ -47,8 +48,12 @@ def main():
 
         for asteroid in asteroids:
             if player.collide(asteroid):
-                print("Game over!")
-                sys.exit(0)
+                lives -= 1
+                if lives <= 0:
+                    print("Game over!")
+                    sys.exit(0)
+                else:
+                    player.position = pygame.Vector2(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)  # Respawn player
         
         for asteroid in asteroids:
             for shot in shots:
@@ -61,9 +66,11 @@ def main():
                         score += 2  # Medium asteroid
                     elif asteroid.radius == ASTEROID_MIN_RADIUS:
                         score += 1  # Small asteroid
-
+                    
         score_text = f"Score: {score}"
+        lives_text = f"Lives: {lives}"
         font.render_to(screen, (10, 10), score_text, "white")
+        font.render_to(screen, (10, 50), lives_text, "red")
 
         pygame.display.flip()
 
