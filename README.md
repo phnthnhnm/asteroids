@@ -6,6 +6,11 @@ It's a simple clone of the classic [Asteroids](https://en.wikipedia.org/wiki/Ast
 
 ## How to Run
 
+### Windows
+Download the [game.exe](https://github.com/phnthnhnm/asteroids/releases/latest/download/game.exe) file in the [release](https://github.com/phnthnhnm/asteroids/releases/latest)
+
+### Other Platforms
+
 1. **Set up a virtual environment:**
    ```bash
    python -m venv venv
