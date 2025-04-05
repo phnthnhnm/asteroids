@@ -42,6 +42,7 @@ class Player(CircleShape):
             return None
 
     def update(self, dt):
+        super().update(dt)
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_a]:
