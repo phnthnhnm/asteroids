@@ -11,6 +11,7 @@ from shot import Shot
 from explosion import Explosion
 from pygame import transform
 
+
 def resource_path(relative_path):
     """Get the absolute path to the resource, works for dev and for PyInstaller"""
     try:
@@ -22,8 +23,10 @@ def resource_path(relative_path):
 
     return os.path.join(base_path, relative_path)
 
+
 background = pygame.image.load(resource_path("assets/background.svg"))
 background = transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))
+
 
 def main():
     print("Starting Asteroids!")
@@ -40,10 +43,10 @@ def main():
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
     shots = pygame.sprite.Group()
-    
+
     Player.containers = (updateable, drawable)
     Asteroid.containers = (asteroids, updateable, drawable)
-    AsteroidField.containers = (updateable)
+    AsteroidField.containers = updateable
     Shot.containers = (shots, updateable, drawable)
     Explosion.containers = (drawable, updateable)
 
@@ -58,11 +61,11 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
-            
+
         screen.blit(background, (0, 0))
 
         updateable.update(dt)
-        
+
         for sprite in drawable:
             sprite.draw(screen)
 
@@ -73,8 +76,10 @@ def main():
                     print("Game over!")
                     sys.exit(0)
                 else:
-                    player.position = pygame.Vector2(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)  # Respawn player
-        
+                    player.position = pygame.Vector2(
+                        SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2
+                    )  # Respawn player
+
         for asteroid in asteroids:
             for shot in shots:
                 if asteroid.collide(shot):
@@ -86,7 +91,7 @@ def main():
                         score += 2  # Medium asteroid
                     elif asteroid.radius == ASTEROID_MIN_RADIUS:
                         score += 1  # Small asteroid
-                    
+
         score_text = f"Score: {score}"
         lives_text = f"Lives: {lives}"
         weapon_text = f"Weapon: {player.weapon_type.capitalize()}"
@@ -97,7 +102,6 @@ def main():
         pygame.display.flip()
 
         dt = clock.tick(60) / 1000
-
 
 
 if __name__ == "__main__":

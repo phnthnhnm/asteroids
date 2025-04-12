@@ -3,6 +3,7 @@ from constants import *
 from circleshape import CircleShape
 from explosion import Explosion
 
+
 class Shot(CircleShape):
     def __init__(self, x, y):
         super().__init__(x, y, SHOT_RADIUS)
@@ -14,6 +15,7 @@ class Shot(CircleShape):
     def update(self, dt):
         self.position += self.velocity * dt
 
+
 class FastShot(Shot):
     def __init__(self, x, y):
         super().__init__(x, y)
@@ -23,7 +25,8 @@ class FastShot(Shot):
 
     def update(self, dt):
         self.position += self.velocity * dt * self.speed_multiplier
-    
+
+
 class SpreadShot(Shot):
     def __init__(self, x, y, angle_offset):
         super().__init__(x, y)
@@ -31,6 +34,7 @@ class SpreadShot(Shot):
 
     def set_velocity(self, base_velocity):
         self.velocity = base_velocity.rotate(self.angle_offset)
+
 
 class BigShot(Shot):
     def __init__(self, x, y):

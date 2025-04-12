@@ -1,5 +1,6 @@
 import pygame
 
+
 class Explosion(pygame.sprite.Sprite):
     def __init__(self, x, y, radius):
         super().__init__(self.containers)
@@ -13,7 +14,9 @@ class Explosion(pygame.sprite.Sprite):
         color = (255, 255, 255, alpha)
         surface = pygame.Surface((self.radius * 2, self.radius * 2), pygame.SRCALPHA)
         pygame.draw.circle(surface, color, (self.radius, self.radius), self.radius)
-        screen.blit(surface, (self.position.x - self.radius, self.position.y - self.radius))
+        screen.blit(
+            surface, (self.position.x - self.radius, self.position.y - self.radius)
+        )
 
     def update(self, dt):
         self.timer -= dt
